@@ -1,7 +1,9 @@
 package client
 
 import (
+	"bufio"
 	"crypto/tls"
+	"encoding/json"
 	"log"
 	"net/http"
 	"net/http/cookiejar"
@@ -107,4 +109,12 @@ func SetCookieHandler(client *http.Client) error {
 		client.Jar = cookie
 		return nil
 	}
+}
+
+func GetBodyReader(resp *http.Response) *bufio.Reader {
+	return bufio.NewReader(resp.Body)
+}
+
+func GetJsonDecoder(resp *http.Response) *json.Decoder {
+	return json.NewDecoder(resp.Body)
 }
